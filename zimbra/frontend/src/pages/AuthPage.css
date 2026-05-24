@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --z-navy:     #0D1B2A;
+  --z-navy-2:   #152437;
+  --z-navy-3:   #1E3050;
+  --z-accent:   #3B82F6;
+  --z-accent-2: #2563EB;
+  --z-text:     #F0F4F8;
+  --z-muted:    #8FA3B8;
+  --z-border:   rgba(255,255,255,0.08);
+  --z-success:  #10B981;
+  --z-error:    #F87171;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--z-navy);
+  color: var(--z-text);
+}
+
+/* ── Layout ─────────────────────────────────── */
+
+.auth-root {
+  display: flex;
+  min-height: 100vh;
+}
+
+.auth-left {
+  flex: 1;
+  background: var(--z-navy-2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-right {
+  width: 480px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--z-navy);
+}
+
+/* ── Brand / left panel ─────────────────────── */
+
+.auth-brand {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--z-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.auth-logo-z {
+  font-family: 'DM Serif Display', serif;
+  font-size: 30px;
+  color: #fff;
+  line-height: 1;
+}
+
+.auth-tagline {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.4rem;
+  line-height: 1.25;
+  color: var(--z-text);
+  max-width: 340px;
+}
+
+/* decorative circles */
+.auth-decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dec-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--z-border);
+}
+
+.dec-circle--1 {
+  width: 420px; height: 420px;
+  bottom: -140px; right: -140px;
+  border-color: rgba(59,130,246,0.15);
+}
+
+.dec-circle--2 {
+  width: 260px; height: 260px;
+  bottom: -40px; right: -40px;
+  border-color: rgba(59,130,246,0.25);
+  background: rgba(59,130,246,0.04);
+}
+
+.dec-circle--3 {
+  width: 110px; height: 110px;
+  bottom: 80px; right: 80px;
+  border-color: rgba(59,130,246,0.35);
+  background: rgba(59,130,246,0.08);
+}
+
+/* ── Card ───────────────────────────────────── */
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+/* ── Tabs ───────────────────────────────────── */
+
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--z-border);
+  margin-bottom: 1.75rem;
+}
+
+.auth-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--z-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s;
+  margin-bottom: -1px;
+}
+
+.auth-tab:hover { color: var(--z-text); }
+
+.auth-tab--active {
+  color: var(--z-text);
+  border-bottom-color: var(--z-accent);
+}
+
+/* ── Alerts ─────────────────────────────────── */
+
+.auth-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.auth-alert--success {
+  background: rgba(16,185,129,0.1);
+  color: var(--z-success);
+  border: 1px solid rgba(16,185,129,0.25);
+}
+
+.auth-alert--error {
+  background: rgba(248,113,113,0.1);
+  color: var(--z-error);
+  border: 1px solid rgba(248,113,113,0.2);
+}
+
+/* ── Form fields ────────────────────────────── */
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.auth-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.auth-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--z-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.auth-input {
+  background: var(--z-navy-3);
+  border: 1px solid var(--z-border);
+  border-radius: 8px;
+  color: var(--z-text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.85rem;
+  transition: border-color 0.18s;
+  outline: none;
+  width: 100%;
+}
+
+.auth-input::placeholder { color: var(--z-muted); opacity: 0.6; }
+
+.auth-input:focus {
+  border-color: var(--z-accent);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+}
+
+.auth-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Submit button ──────────────────────────── */
+
+.auth-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--z-accent);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+}
+
+.auth-btn:hover:not(:disabled) { background: var(--z-accent-2); }
+.auth-btn:active:not(:disabled) { transform: scale(0.98); }
+.auth-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── Spinner ────────────────────────────────── */
+
+.auth-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Footer note ────────────────────────────── */
+
+.auth-footer-note {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--z-muted);
+  margin-top: 1.25rem;
+}
+
+.auth-link {
+  background: none;
+  border: none;
+  color: var(--z-accent);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.auth-link:hover { color: #60A5FA; }
+
+/* ── Responsive ─────────────────────────────── */
+
+@media (max-width: 768px) {
+  .auth-root { flex-direction: column; }
+  .auth-left {
+    padding: 2rem;
+    min-height: 220px;
+    justify-content: flex-end;
+  }
+  .auth-tagline { font-size: 1.6rem; }
+  .auth-right { width: 100%; padding: 1.5rem; }
+  .auth-row { grid-template-columns: 1fr; }
+}
