@@ -22,12 +22,10 @@ urlpatterns = [
 
     # Documentacion de la API
     path('api/v1/', include('document.urls')),
-<<<<<<< HEAD
 
     # API del CRM
     path('api/', include('crm.urls')),
-=======
+
     
     path('api/v1/', include('crm.urls')),
->>>>>>> 7ad3ccd (add: se crea la api para autenticar los vendores en el login)
 ]
