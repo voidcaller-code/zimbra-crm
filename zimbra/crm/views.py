@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Prospecto
+from .models import Prospecto, Cliente
 
 
 def obtener_prospectos(request):
@@ -26,3 +26,8 @@ def obtener_prospectos(request):
         })
 
     return JsonResponse(data, safe=False)
+
+
+def obtener_clientes(request):
+    clientes = list(Cliente.objects.values())
+    return JsonResponse(clientes, safe=False)
