@@ -4,6 +4,7 @@ import { AuthProvider } from './components/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
+import Prospectos from './pages/Prospectos';
 
 const App = () => {
   return (
@@ -23,6 +24,15 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Dashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/prospectos"
+            element={
+              <PrivateRoute>
+                <Prospectos />
               </PrivateRoute>
             }
           />
