@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+<<<<<<< HEAD
 from .models import Prospecto, Cliente
 
 
@@ -26,8 +27,22 @@ def obtener_prospectos(request):
         })
 
     return JsonResponse(data, safe=False)
+=======
+from .models import Cliente
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import VendedorTokenObtainPairSerializer
+
+
+class VendedorLoginView(TokenObtainPairView):
+    serializer_class = VendedorTokenObtainPairSerializer
+>>>>>>> 7ad3ccd (add: se crea la api para autenticar los vendores en el login)
 
 
 def obtener_clientes(request):
     clientes = list(Cliente.objects.values())
+<<<<<<< HEAD
     return JsonResponse(clientes, safe=False)
+=======
+    return JsonResponse(clientes, safe=False)
+
+>>>>>>> 7ad3ccd (add: se crea la api para autenticar los vendores en el login)

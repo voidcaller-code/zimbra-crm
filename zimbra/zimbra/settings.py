@@ -1,6 +1,7 @@
 
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -131,8 +132,12 @@ REST_FRAMEWORK = {
 
 # Configuración JWT
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': config('ACCESS_TOKEN_LIFETIME', default='5m'),
-    'REFRESH_TOKEN_LIFETIME': config('REFRESH_TOKEN_LIFETIME', default='1d'),
+    'ACCESS_TOKEN_LIFETIME': timedelta(
+        minutes=config('ACCESS_TOKEN_MINUTES', default=60, cast=int)
+    ),
+    'REFRESH_TOKEN_LIFETIME': timedelta(
+        days=config('REFRESH_TOKEN_DAYS', default=1, cast=int)
+    ),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True
 }

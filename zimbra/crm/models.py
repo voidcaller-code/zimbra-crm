@@ -2,7 +2,16 @@ from django.db import models
 
 # VENDEDORES
 
+from django.db import models
+from django.contrib.auth.models import User
+
+
 class Vendedor(models.Model):
+    usuario = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name='vendedor'
+    )
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
@@ -16,11 +25,9 @@ class Vendedor(models.Model):
         return f"{self.nombre} {self.apellido}"
 
     class Meta:
+        db_table = 'vendedores'
         verbose_name = 'Vendedor'
         verbose_name_plural = 'Vendedores'
-        ordering = ['-fecha_ingreso']
-        db_table = 'vendedores'
-
 # CAMPANIAS MARKETING
 
 class TiposCampanias(models.TextChoices):
