@@ -5,6 +5,8 @@ import PrivateRoute from './components/PrivateRoute';
 import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
 import Prospectos from './pages/Prospectos';
+import Propuestas from './pages/Propuestas';
+import VentasReportes from './pages/VentasReportes';
 
 const App = () => {
   return (
@@ -33,6 +35,24 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Prospectos />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/propuestas"
+            element={
+              <PrivateRoute>
+                <Propuestas />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/ventas-reportes"
+            element={
+              <PrivateRoute>
+                <VentasReportes />
               </PrivateRoute>
             }
           />
