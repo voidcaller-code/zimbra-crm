@@ -20,14 +20,13 @@ BEGIN
         UPDATE prospectos
         SET
             convertido_cliente = 1,
-            estado = 'CL'
+            estado = 'CV'
         WHERE id = p_prospecto_id;
 
         SELECT
             id,
             nombre,
             apellido,
-            email,
             empresa,
             descargo_prueba,
             score_calificacion,
