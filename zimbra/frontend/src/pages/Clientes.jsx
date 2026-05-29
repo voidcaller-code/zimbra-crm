@@ -2,32 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
-const Prospectos = () => {
+const Clientes = () => {
   const navigate = useNavigate();
 
-  const [prospectos, setProspectos] = useState([]);
+  const [clientes, setClientes] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const cargarProspectos = async () => {
+    const cargarClientes = async () => {
       try {
-        const response = await api.get('/prospectos/');
-        setProspectos(response.data);
+        const response = await api.get('/clientes/');
+        setClientes(response.data);
       } catch (err) {
-        setError('No se pudieron cargar los prospectos.');
+        setError('No se pudieron cargar los clientes.');
       } finally {
         setCargando(false);
       }
     };
 
-    cargarProspectos();
+    cargarClientes();
   }, []);
 
   if (cargando) {
     return (
       <div style={pageStyle}>
-        <p>Cargando prospectos...</p>
+        <p>Cargando clientes...</p>
       </div>
     );
   }
@@ -36,10 +36,14 @@ const Prospectos = () => {
     return (
       <div style={pageStyle}>
         <div style={cardStyle}>
-          <h1>Prospectos</h1>
+          <h1>Clientes</h1>
           <p style={{ color: '#fca5a5' }}>{error}</p>
 
-          <button type="button" style={buttonStyle} onClick={() => navigate('/dashboard')}>
+          <button
+            type="button"
+            style={buttonStyle}
+            onClick={() => navigate('/dashboard')}
+          >
             Volver al dashboard
           </button>
         </div>
@@ -53,19 +57,19 @@ const Prospectos = () => {
         <div style={headerStyle}>
           <div>
             <p style={tagStyle}>Gestión comercial</p>
-            <h1 style={titleStyle}>Prospectos</h1>
+            <h1 style={titleStyle}>Clientes</h1>
             <p style={descriptionStyle}>
-              Consulta los prospectos registrados, su puntaje y si descargaron la versión de prueba.
+              Consulta los prospectos que ya fueron convertidos en clientes de la empresa.
             </p>
           </div>
 
           <div style={headerButtonsStyle}>
             <button
               type="button"
-              style={primaryButtonStyle}
-              onClick={() => navigate('/prospectos/crear')}
+              style={buttonStyle}
+              onClick={() => navigate('/prospectos')}
             >
-              Crear prospecto
+              Ver prospectos
             </button>
 
             <button
@@ -82,55 +86,41 @@ const Prospectos = () => {
           <table style={tableStyle}>
             <thead>
               <tr>
-                <th style={thStyle}>Nombre</th>
+                <th style={thStyle}>Empresa</th>
+                <th style={thStyle}>Contacto</th>
                 <th style={thStyle}>Email</th>
                 <th style={thStyle}>Teléfono</th>
-                <th style={thStyle}>Empresa</th>
-                <th style={thStyle}>Cargo</th>
-                <th style={thStyle}>Descargó prueba</th>
-                <th style={thStyle}>Puntaje</th>
-                <th style={thStyle}>Estado</th>
-                <th style={thStyle}>Vendedor</th>
-                <th style={thStyle}>Acciones</th>
+                <th style={thStyle}>País</th>
+                <th style={thStyle}>Tipo</th>
+                <th style={thStyle}>Fecha conversión</th>
+                <th style={thStyle}>Activo</th>
               </tr>
             </thead>
 
             <tbody>
-              {prospectos.length > 0 ? (
-                prospectos.map((prospecto) => (
-                  <tr key={prospecto.id}>
+              {clientes.length > 0 ? (
+                clientes.map((cliente) => (
+                  <tr key={cliente.id}>
+                    <td style={tdStyle}>{cliente.nombre_empresa}</td>
+                    <td style={tdStyle}>{cliente.nombre_contacto}</td>
+                    <td style={tdStyle}>{cliente.email_contacto}</td>
+                    <td style={tdStyle}>{cliente.telefono || 'Sin teléfono'}</td>
+                    <td style={tdStyle}>{cliente.pais || 'Sin país'}</td>
+                    <td style={tdStyle}>{cliente.tipo_cliente}</td>
+                    <td style={tdStyle}>{cliente.fecha_conversion}</td>
                     <td style={tdStyle}>
-                      {prospecto.nombre} {prospecto.apellido}
-                    </td>
-                    <td style={tdStyle}>{prospecto.email}</td>
-                    <td style={tdStyle}>{prospecto.telefono || 'Sin teléfono'}</td>
-                    <td style={tdStyle}>{prospecto.empresa || 'Sin empresa'}</td>
-                    <td style={tdStyle}>{prospecto.cargo || 'Sin cargo'}</td>
-                    <td style={tdStyle}>
-                      {prospecto.descargo_prueba ? (
+                      {cliente.activo ? (
                         <span style={badgeSuccessStyle}>Sí</span>
                       ) : (
                         <span style={badgeDangerStyle}>No</span>
                       )}
                     </td>
-                    <td style={scoreStyle}>{prospecto.score_calificacion}</td>
-                    <td style={tdStyle}>{prospecto.estado}</td>
-                    <td style={tdStyle}>{prospecto.vendedor || 'Sin asignar'}</td>
-                    <td style={tdStyle}>
-                    <button
-                      type="button"
-                      style={editButtonStyle}
-                      onClick={() => navigate(`/prospectos/${prospecto.id}/editar`)}
-                    >
-                      Editar
-                    </button>
-                  </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td style={emptyStyle} colSpan="10">
-                    No hay prospectos registrados.
+                  <td style={emptyStyle} colSpan="8">
+                    No hay clientes registrados.
                   </td>
                 </tr>
               )}
@@ -163,6 +153,12 @@ const headerStyle = {
   alignItems: 'flex-start',
   gap: '20px',
   marginBottom: '24px',
+};
+
+const headerButtonsStyle = {
+  display: 'flex',
+  gap: '12px',
+  alignItems: 'center',
 };
 
 const tagStyle = {
@@ -221,12 +217,6 @@ const tdStyle = {
   borderBottom: '1px solid rgba(255,255,255,0.08)',
 };
 
-const scoreStyle = {
-  ...tdStyle,
-  color: '#60A5FA',
-  fontWeight: 700,
-};
-
 const badgeSuccessStyle = {
   background: '#DCFCE7',
   color: '#166534',
@@ -249,30 +239,4 @@ const emptyStyle = {
   color: '#8FA3B8',
 };
 
-const headerButtonsStyle = {
-  display: 'flex',
-  gap: '12px',
-  alignItems: 'center',
-};
-
-const primaryButtonStyle = {
-  padding: '0.7rem 1.2rem',
-  borderRadius: '10px',
-  border: 'none',
-  background: '#2563EB',
-  color: '#FFFFFF',
-  cursor: 'pointer',
-  fontWeight: 700,
-};
-
-const editButtonStyle = {
-  padding: '0.45rem 0.8rem',
-  borderRadius: '8px',
-  border: 'none',
-  background: '#F59E0B',
-  color: '#FFFFFF',
-  cursor: 'pointer',
-  fontWeight: 700,
-};
-
-export default Prospectos;
+export default Clientes;

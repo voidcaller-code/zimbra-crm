@@ -51,7 +51,7 @@ class CampanaMarketing(models.Model):
     activa = models.BooleanField(default=True)
 
     vendedor_responsable = models.ForeignKey(
-        Vendedor,
+        User,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -81,7 +81,7 @@ class EstadoProspecto(models.TextChoices):
 
 class Prospecto(models.Model):
     vendedor = models.ForeignKey(
-        Vendedor,
+        User,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -259,7 +259,7 @@ class Propuesta(models.Model):
         db_column='prospecto_id'
     )
     vendedor = models.ForeignKey(
-        Vendedor,
+        User,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -319,7 +319,7 @@ class Venta(models.Model):
         db_column='cliente_id'
     )
     vendedor = models.ForeignKey(
-        Vendedor,
+        User,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

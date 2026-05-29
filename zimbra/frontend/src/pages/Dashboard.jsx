@@ -31,6 +31,11 @@ const Dashboard = () => {
               <span>Prospectos</span>
             </button>
 
+            <button type="button" onClick={() => navigate('/clientes')}>
+              <span className="menu-icon">👥</span>
+              <span>Clientes</span>
+            </button>
+
             <button type="button" onClick={() => navigate('/propuestas')}>
               <span className="menu-icon">📄</span>
               <span>Propuestas</span>
