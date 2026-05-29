@@ -5,11 +5,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 from django.db import transaction
 
 from .models import Prospecto, Cliente, EstadoProspecto, TipoCliente, Propuesta
 from .serializers import VendedorTokenObtainPairSerializer, ProspectoSerializer, PropuestaSerializer
 from rest_framework.permissions import IsAuthenticated
+from .repositories import ejecutar_procedimiento
 from rest_framework.decorators import action
 
 
@@ -191,3 +193,68 @@ class PropuestaApiViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(vendedor=self.request.user)
+
+
+# Llamar procedimientos almacenados
+class ReporteEfectividadProspectosAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        data = ejecutar_procedimiento('sp_efectividad_prospectos')
+
+        return Response({
+            'message': 'Reporte de efectividad general generado correctamente.',
+            'data': data
+        })
+
+
+class ReporteMensualProspectosAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        anio = request.query_params.get('anio')
+
+        if not anio:
+            return Response(
+                {'message': 'Debe enviar el parámetro anio.'},
+                status=400
+            )
+
+        data = ejecutar_procedimiento(
+            'sp_reporte_mensual_prospectos',
+            [int(anio)]
+        )
+
+        return Response({
+            'message': 'Reporte mensual generado correctamente.',
+            'data': data
+        })
+
+
+class ProspectosAltaProbabilidadAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        score_minimo = request.query_params.get('score_minimo', 50)
+
+        data = ejecutar_procedimiento(
+            'sp_prospectos_alta_probabilidad',
+            [int(score_minimo)]
+        )
+
+        return Response({
+            'message': 'Prospectos con alta probabilidad generados correctamente.',
+            'data': data
+        })
+
+
+class ReportePipelineEstadosAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        data = ejecutar_procedimiento('sp_resumen_pipeline_estados')
+
+        return Response({
+            'message': 'Resumen del pipeline generado correctamente.',
+            'data': data
+        })

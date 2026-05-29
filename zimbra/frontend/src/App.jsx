@@ -10,6 +10,8 @@ import CrearProspecto from './pages/CrearProspecto';
 import EditarProspecto from './pages/EditarProspecto';
 import Clientes from './pages/Clientes';
 import Propuestas from './pages/Propuestas';
+import CrearPropuesta from './pages/CrearPropuesta';
+import EditarPropuesta from './pages/EditarPropuesta';
 
 const App = () => {
   return (
@@ -85,6 +87,24 @@ const App = () => {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/propuestas/crear"
+          element={
+            <PrivateRoute>
+              <CrearPropuesta />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+            path="/propuestas/:id/editar"
+            element={
+              <PrivateRoute>
+                <EditarPropuesta />
+              </PrivateRoute>
+            }
+          />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/login" replace />} />

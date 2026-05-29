@@ -9,6 +9,10 @@ from .views import (
     obtener_prospectos,
     VendedorLoginView,
     registrar_vendedor,
+    ReporteEfectividadProspectosAPIView,
+    ReporteMensualProspectosAPIView,
+    ProspectosAltaProbabilidadAPIView,
+    ReportePipelineEstadosAPIView,
 )
 
 urlpatterns = [
@@ -25,4 +29,26 @@ urlpatterns = [
 
     # PROPUESTAS
     path('', include(router_propuestas.urls)),
+
+    # REPORTES, PROCEDIMIENTOS ALMACENADOS
+    path(
+        'reportes/efectividad-prospectos/',
+        ReporteEfectividadProspectosAPIView.as_view(),
+        name='reporte_efectividad_prospectos'
+    ),
+    path(
+        'reportes/prospectos-mensual/',
+        ReporteMensualProspectosAPIView.as_view(),
+        name='reporte_mensual_prospectos'
+    ),
+    path(
+        'reportes/prospectos-alta-probabilidad/',
+        ProspectosAltaProbabilidadAPIView.as_view(),
+        name='prospectos_alta_probabilidad'
+    ),
+    path(
+        'reportes/pipeline-estados/',
+        ReportePipelineEstadosAPIView.as_view(),
+        name='reporte_pipeline_estados'
+    ),
 ]
